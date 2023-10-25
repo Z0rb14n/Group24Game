@@ -65,6 +65,18 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Weapon)
 	bool GetHasRifle();
 
+	/** Bool to enable or disable character movement */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Input)
+	bool bIsMovementEnabled;
+
+	/** Setter to set the bool */
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void SetIsMovementEnabled(bool bNewIsMovementEnabled);
+
+	/** Getter for the bool */
+	UFUNCTION(BlueprintCallable, Category = Input)
+	bool GetIsMovementEnabled();
+
 protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);

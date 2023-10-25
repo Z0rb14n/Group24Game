@@ -20,6 +20,7 @@ AGroup24GameCharacter::AGroup24GameCharacter()
 {
 	// Character doesnt have a rifle at start
 	bHasRifle = false;
+	bIsMovementEnabled = true;
 	
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
@@ -86,7 +87,7 @@ void AGroup24GameCharacter::Move(const FInputActionValue& Value)
 	// input is a Vector2D
 	FVector2D MovementVector = Value.Get<FVector2D>();
 
-	if (Controller != nullptr)
+	if (Controller != nullptr && bIsMovementEnabled)
 	{
 		// add movement 
 		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
@@ -99,7 +100,7 @@ void AGroup24GameCharacter::Look(const FInputActionValue& Value)
 	// input is a Vector2D
 	FVector2D LookAxisVector = Value.Get<FVector2D>();
 
-	if (Controller != nullptr)
+	if (Controller != nullptr && bIsMovementEnabled)
 	{
 		// add yaw and pitch input to controller
 		AddControllerYawInput(LookAxisVector.X);
@@ -115,4 +116,14 @@ void AGroup24GameCharacter::SetHasRifle(bool bNewHasRifle)
 bool AGroup24GameCharacter::GetHasRifle()
 {
 	return bHasRifle;
+}
+
+void AGroup24GameCharacter::SetIsMovementEnabled(bool bNewIsMovementEnabled)
+{
+	bIsMovementEnabled = bNewIsMovementEnabled;
+}
+
+bool AGroup24GameCharacter::GetIsMovementEnabled()
+{
+	return bIsMovementEnabled;
 }
