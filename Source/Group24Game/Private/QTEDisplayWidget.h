@@ -15,13 +15,20 @@ class UQTEDisplayWidget : public UUserWidget
 	GENERATED_BODY()
 	
 protected:
+	virtual void NativeConstruct() override;
+	
 	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
 	class UTextBlock* FailDisplay;
 	
 	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
 	UTextBlock* KeyDisplay;
 	
+	void NativeTick(const FGeometry& MyGeometry, float InDeltaTime);
+	float TimeSinceStart = 0;
+	
 public:
+	UFUNCTION(BlueprintCallable)
+	void SetPosition(FVector2D NewPos);
 	/**
 	 * Yes, you may be wondering, "Jon, why the f--- is there an int here?"
 	 *
@@ -40,4 +47,10 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool GetHasFailed() const;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
+	float TimeToFail = 0.5f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
+	float TimeToDestroy = 1;
 };

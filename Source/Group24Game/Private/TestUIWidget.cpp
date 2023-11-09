@@ -14,6 +14,7 @@ void UTestUIWidget::NativeConstruct()
 	{
 		CheckBox->OnCheckStateChanged.AddDynamic(this, &UTestUIWidget::OnCheckboxChanged);
 	}
+	ensure(QTEWidgetTemplate);
 }
 
 void UTestUIWidget::OnCheckboxChanged(bool bIsChecked)
@@ -45,5 +46,23 @@ void UTestUIWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 			if (FinalPos.Y > ScreenSize.Y) FinalPos.Y = ScreenSize.Y;
 			CanvasPanelSlot->SetPosition(FinalPos);
 		}
+	}
+	TimeSinceCreation += InDeltaTime;
+	if (TimeSinceCreation > 2)
+	{
+		if (QTEWidgetInstance && QTEWidgetInstance->IsInViewport())
+		{
+			QTEWidgetInstance->RemoveFromParent();
+			QTEWidgetInstance = nullptr;
+		}
+		if (ensure(QTEWidgetTemplate))
+		{
+			QTEWidgetInstance = static_cast<UQTEDisplayWidget*>(CreateWidget(GetOwningPlayer(), QTEWidgetTemplate));
+			// todo randomize key/position
+			QTEWidgetInstance->SetPosition(FVector2D(200,200));
+			QTEWidgetInstance->SetDisplayedKey('F');
+			QTEWidgetInstance->AddToViewport();
+		}
+		TimeSinceCreation = 0;
 	}
 }
