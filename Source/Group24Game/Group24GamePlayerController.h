@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Private/TestUIWidget.h"
 #include "GameFramework/PlayerController.h"
 #include "Group24GamePlayerController.generated.h"
 
@@ -22,10 +23,17 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UInputMappingContext* InputMappingContext;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UI)
+	TSubclassOf<UTestUIWidget> WidgetTemplate;
+	
 	// Begin Actor interface
 protected:
 
 	virtual void BeginPlay() override;
 
+	void OnAttemptTestUIOpen();
 	// End Actor interface
+private:
+	UPROPERTY()
+	UTestUIWidget* WidgetInstance;
 };
