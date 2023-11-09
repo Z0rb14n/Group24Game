@@ -16,7 +16,6 @@ public:
 	// Sets default values for this component's properties
 	UMaxwellComponent();
 	
-	/** Gun muzzle's offset from the characters location */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
 	float RotationSpeed = 100;
 
