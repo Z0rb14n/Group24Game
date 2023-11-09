@@ -25,7 +25,7 @@ void UTestUIWidget::OnCheckboxChanged(bool bIsChecked)
 void UTestUIWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
 	Super::NativeTick(MyGeometry, InDeltaTime);
-	static int TickCount = 0;
+	//static int TickCount = 0;
 
 	if (!CheckBox->IsChecked())
 	{
@@ -34,7 +34,7 @@ void UTestUIWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 		const FVector2D Pos = CanvasPanelSlot->GetPosition();
 		const FVector2D MousePos = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
 		const FVector2D ScreenSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
-		TickCount ++;
+		//TickCount ++;
 		if (FVector2D::Distance(Pos, MousePos) <= 200)
 		{
 			FVector2D Diff = Pos - MousePos;
@@ -45,11 +45,11 @@ void UTestUIWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 			if (FinalPos.X > ScreenSize.X-Size.X/2) FinalPos.X = ScreenSize.X-Size.X/2;
 			if (FinalPos.Y < 0) FinalPos.Y = 0;
 			if (FinalPos.Y > ScreenSize.Y) FinalPos.Y = ScreenSize.Y;
-			if(GEngine && TickCount % 100 == 99)
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Final:" + FinalPos.ToString()));
+			//if(GEngine && TickCount % 100 == 99)
+			//	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Final:" + FinalPos.ToString()));
 			CanvasPanelSlot->SetPosition(FinalPos);
 		}
-		
+		/*
 		if(GEngine && TickCount % 100 == 99)
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Screen" + ScreenSize.ToString()));
 		if(GEngine && TickCount % 100 == 99)
@@ -57,5 +57,6 @@ void UTestUIWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 		if(GEngine && TickCount % 100 == 99)
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Pos" + Pos.ToString()));
 		TickCount = TickCount%100;
+		*/
 	}
 }
