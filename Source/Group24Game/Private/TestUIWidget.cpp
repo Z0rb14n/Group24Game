@@ -58,9 +58,8 @@ void UTestUIWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 		if (ensure(QTEWidgetTemplate))
 		{
 			QTEWidgetInstance = static_cast<UQTEDisplayWidget*>(CreateWidget(GetOwningPlayer(), QTEWidgetTemplate));
-			// todo randomize key/position
-			QTEWidgetInstance->SetPosition(FVector2D(200,200));
-			QTEWidgetInstance->SetDisplayedKey('F');
+			QTEWidgetInstance->SetPosition(FVector2D(FMath::RandRange(150,950),FMath::RandRange(150,950)));
+			QTEWidgetInstance->SetDisplayedKey(FMath::RandRange('A','Z'));
 			QTEWidgetInstance->AddToViewport();
 		}
 		TimeSinceCreation = 0;

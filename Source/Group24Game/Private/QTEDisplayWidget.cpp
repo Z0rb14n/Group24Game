@@ -8,8 +8,6 @@
 void UQTEDisplayWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-	// todo randomize
-	SetPosition(FVector2D(200,200));
 }
 
 void UQTEDisplayWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
