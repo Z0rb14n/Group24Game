@@ -10,7 +10,7 @@ void UQTEDisplayWidget::NativeConstruct()
 	Super::NativeConstruct();
 }
 
-void UQTEDisplayWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+void UQTEDisplayWidget::NativeTick(const FGeometry& MyGeometry, const float InDeltaTime)
 {
 	Super::NativeTick(MyGeometry, InDeltaTime);
 	TimeSinceStart += InDeltaTime;
@@ -24,9 +24,14 @@ void UQTEDisplayWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTim
 	{
 		if (ensure(GetOwningPlayer()))
 		{
-			FString wtf = FString() + (char) GetDisplayedKey();
-			if (GetOwningPlayer()->WasInputKeyJustPressed(FKey(TCHAR_TO_ANSI(*wtf))))
+			const FString wtf = FString() + (char) GetDisplayedKey();
+			if (GetOwningPlayer()->WasInputKeyJustPressed(FKey(*wtf)))
 			{
+				if(GEngine)
+				{
+					const FString Message = TEXT("QTE Success: ") + FString::SanitizeFloat(TimeSinceStart) + " s";
+					GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, Message);
+				}
 				if (IsInViewport()) RemoveFromParent();
 			}
 		}
