@@ -5,6 +5,9 @@
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/CheckBox.h"
+#include "Components/VerticalBox.h"
+#include "UInventoryIconWidget.h"
+#include "Group24Game/Group24GameGameMode.h"
 
 void UTestUIWidget::NativeConstruct()
 {
@@ -15,6 +18,25 @@ void UTestUIWidget::NativeConstruct()
 		CheckBox->OnCheckStateChanged.AddDynamic(this, &UTestUIWidget::OnCheckboxChanged);
 	}
 	ensure(QTEWidgetTemplate);
+	if (ensure(InventoryWidgetTemplate))
+	{
+		TArray<FUInventoryItem> Inv = static_cast<AGroup24GameGameMode*>(GetWorld()->GetAuthGameMode())->CurrentInventory;
+		const int Len = Inv.Num();
+		while (InventoryBox->GetChildrenCount() > Len)
+		{
+			InventoryBox->GetChildAt(Len)->RemoveFromParent();
+		}
+		while (InventoryBox->GetChildrenCount() < Len)
+		{
+			UInventoryIconWidget* InvWidget = static_cast<UInventoryIconWidget*>(CreateWidget(GetOwningPlayer(), InventoryWidgetTemplate));
+			InventoryBox->AddChildToVerticalBox(InvWidget);
+		}
+		for (int i = 0 ; i < Inv.Num(); ++i)
+		{
+			FUInventoryItem Item = Inv[i];
+			static_cast<UInventoryIconWidget*>(InventoryBox->GetChildAt(i))->SetDisplayedObject(Item);
+		}
+	}
 }
 
 void UTestUIWidget::OnCheckboxChanged(bool bIsChecked)

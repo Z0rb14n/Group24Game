@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "QTEDisplayWidget.h"
+#include "UInventoryIconWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "TestUIWidget.generated.h"
 
@@ -20,9 +21,15 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UI)
 	TSubclassOf<UQTEDisplayWidget> QTEWidgetTemplate;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UI)
+	TSubclassOf<UInventoryIconWidget> InventoryWidgetTemplate;
 
 	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
 	class UCheckBox* CheckBox;
+
+	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
+	class UVerticalBox* InventoryBox;
 
 private:
 	UFUNCTION()
