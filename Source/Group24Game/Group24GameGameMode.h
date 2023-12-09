@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Private/FUInventoryItem.h"
 #include "Group24GameGameMode.generated.h"
 
 UCLASS(minimalapi)
@@ -13,6 +14,8 @@ class AGroup24GameGameMode : public AGameModeBase
 
 public:
 	AGroup24GameGameMode();
+
+	TArray<FUInventoryItem> CurrentInventory;
 };
 
 
