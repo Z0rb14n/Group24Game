@@ -3,12 +3,14 @@
 
 #include "Group24GamePlayerController.h"
 #include "EnhancedInputSubsystems.h"
-#include "Group24GameCharacter.h"
+#include "UIUtils.h"
 #include "Runtime/UMG/Public/UMG.h"
 
 void AGroup24GamePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+
+	UIUtils::PlayerController = this;
 
 	// get the enhanced input subsystem
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
@@ -37,17 +39,14 @@ void AGroup24GamePlayerController::OnAttemptTestUIOpen()
 		if (!WidgetInstance->IsInViewport())
 		{
 			WidgetInstance->AddToViewport();
-			bShowMouseCursor = true;
-			static_cast<AGroup24GameCharacter*>(GetCharacter())->SetIsMovementEnabled(false);
+			UIUtils::PlayerController = this;
+			UIUtils::OnOpenUI();
 		} else
 		{
 			WidgetInstance->RemoveFromParent();
 			WidgetInstance = nullptr;
-			bShowMouseCursor = false;
-			static_cast<AGroup24GameCharacter*>(GetCharacter())->SetIsMovementEnabled(true);
-			// seems like it permanently softlocks the editor until you do this bs:
-			// https://forums.unrealengine.com/t/c-create-widget/298562/3
-			FSlateApplication::Get().SetAllUserFocusToGameViewport();
+			UIUtils::PlayerController = this;
+			UIUtils::OnCloseUI();
 		}
 	}
 }
