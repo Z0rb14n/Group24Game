@@ -33,7 +33,7 @@ void UIUtils::OnCloseUI()
 	EnsurePlayerController();
 	if (ensure(PlayerController))
 	{
-		PlayerController->bShowMouseCursor = true;
+		PlayerController->bShowMouseCursor = false;
 		AGroup24GameCharacter* MainCharacter = (AGroup24GameCharacter*) PlayerController->GetCharacter();
 		MainCharacter->SetIsMovementEnabled(true);
 	}
