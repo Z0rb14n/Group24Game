@@ -20,7 +20,7 @@ protected:
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void OpenUI();
+	void ToggleUI();
 
 private:
 	UPROPERTY()

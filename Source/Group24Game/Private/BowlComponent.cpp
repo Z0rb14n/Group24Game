@@ -4,7 +4,7 @@
 #include "Group24Game/UIUtils.h"
 
 
-void UBowlComponent::OpenUI()
+void UBowlComponent::ToggleUI()
 {
 	if(GEngine)
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Attempting to open Bowl UI"));

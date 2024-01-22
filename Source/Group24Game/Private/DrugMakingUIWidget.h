@@ -11,9 +11,28 @@ class UDrugMakingUIWidget : public UUserWidget
 public:
 	virtual void NativeConstruct() override;
 	UFUNCTION(BlueprintCallable)
-	void AddIngredient(const int id);
+	void AddIngredient(const int IngredientID);
 	UFUNCTION(BlueprintCallable)
-	bool Mix();
+	void MixStart();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* NormalBowl;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* CoveredBowl;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* RedBowl;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* GreenBowl;
+	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
+	class UImage* BowlImage;
+	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
+	class UButton* MixButton;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MixTime = 2;
 private:
-	int Data;
+	TMap<int, int> AddedIngredients;
+	FTimerHandle MixTimerHandle;
+
+	void OnMixFinish();
+	bool Mix();
 };
